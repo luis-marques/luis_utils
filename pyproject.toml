@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "luis_utils"
+version = "0.0.2a3"
+description = "Some utility functions shared across projects."
+readme = "README.md"
+authors = [
+   { name="Luis Marques", email="lmarques@umich.edu" },
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+requires-python = ">=3.9"
+dependencies = [
+   "numpy>=2",
+   "plotly>=6.0.1",
+   "matplotlib",
+   "pymatlie>=0.0.1a1",
+   "rerun-sdk>=0.22.1",
+   "rerun-notebook>=0.22.1",
+   "scipy>=1.10",
+   "torch>=2.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "docformatter",
+    "isort",
+    "mypy",
+    "pylint>=2.14.5",
+    "pytest-pylint>=0.18.0",
+    "pytest>=7.2.2",
+    "pytest-cov",
+    "pyyaml",
+    "lark"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+luis_utils = ["py.typed"]
+
+[tool.docformatter]
+recursive = true
+in-place = true
+wrap-summaries = 150
+wrap-descriptions = 150
+
+[tool.black]
+line-length = 150
+target-version = ["py311"]
+
+[tool.isort]
+py_version = 311
+profile = "black"
+multi_line_output = 3
+skip_glob = ["venv/*"]
+
+[tool.mypy]
+strict_equality = true
+disallow_untyped_calls = true
+warn_unreachable = true
+exclude = ["venv/*", "examples/*"]
+
+[[tool.mypy.overrides]]
+module = [
+    "matplotlib.*",
+    "scipy.*",
+    "plotly.*",
+    "rerun.*",
+]
+ignore_missing_imports = true
